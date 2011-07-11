@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+  "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <title>Jasmine Test Runner</title>
+  <link rel="stylesheet" type="text/css" href="lib/jasmine-1.0.2/jasmine.css">
+  <script type="text/javascript" src="lib/jasmine-1.0.2/jasmine.js"></script>
+  <script type="text/javascript" src="lib/jasmine-1.0.2/jasmine-html.js"></script>
+</head>
+<body>
+
+<script type="text/javascript">
+	var Validation = function() {
+	};	
+	Validation.prototype.isValidEmail = function (email){
+        var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        if(emailPattern.test(email)) {
+            return "Valid";
+        }
+	};
+
+    Validation.prototype.isValidNameSurname = function (name){
+        var namePattern = /^[a-zA-Z ]{5,30}$/;
+        if(namePattern.test(name)) {
+            return "Valid";
+        }
+	};
+
+    Validation.prototype.isValidZipCode = function (post){
+        var postPattern = /^[0-9]{5}$/;
+        if(postPattern.test(post)) {
+            return "Valid";
+        }
+	};
+// ---------------
+
+describe("Email Valid", function() {
+
+		var valider ;
+		beforeEach(function() {
+			valider = new Validation();
+		});
+
+
+	describe("For string that are Email Adress, output the exact string Valid", function() {
+
+		it("should return Valid for real Email Address", function() {
+			    var result = valider.isValidEmail("mehmettamturk@hotmail.com");
+			    expect(result).toEqual("Valid");
+		});
+	});
+
+    describe("For string that are Name, output the exact string Valid", function() {
+
+		it("should return Valid for real Name", function() {
+			    var result = valider.isValidNameSurname("Mehmet Tamturk");
+			    expect(result).toEqual("Valid");
+		});
+	});
+
+    describe("For string that are PostCode, output the exact string Valid", function() {
+
+		it("should return Valid for real PostCode", function() {
+			    var result = valider.isValidZipCode("12345");
+			    expect(result).toEqual("Valid");
+		});
+	});
+});
+
+jasmine.getEnv()['addReporter'](new jasmine.TrivialReporter());            
+jasmine.getEnv()['execute']();
+
+</script>
+
+</body>
+</html>

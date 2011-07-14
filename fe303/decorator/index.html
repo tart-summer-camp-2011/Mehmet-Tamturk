@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bridge</title>
+
+    <script type="text/javascript" src="../tartJS/third_party/jquery/jquery-1.5.2.js"></script>
+    <script type="text/javascript" src="../tartJS/third_party/goog/goog/base.js"></script>
+    <script type="text/javascript" src="../tartJS/tart/deps.js"></script>
+
+    <script type="text/javascript">
+
+        /**
+         * @interface
+         */
+        var MacProInterface = function() {};
+
+        MacProInterface.prototype.getSoftwareList = goog.abstractMethod;
+        MacProInterface.prototype.boot = goog.abstractMethod;
+
+        /**
+         * @implements {MacProInterface}
+         */
+        var MacPro = function() {
+          this.software = "Mac Os X";
+        };
+
+        MacPro.prototype.getSoftwareList =function() {
+          return this.software;
+        };
+
+        MacPro.prototype.boot= function() {
+            return "booted with the following software: " + this.getSoftwareList();
+        };
+
+        /**
+         * @implements {MacProInterface}
+         * @param {MacProInterface} macPro The MacPro instace tihs class will decorate
+         */
+        var MacProDecorator = function(macPro) {
+            this.macPro = macPro;
+        };
+
+        MacProDecorator.prototype.getSoftwareList = function() {
+            return this.macPro.getSoftwareList();
+        };
+
+        MacProDecorator.prototype.boot = function() {
+            return this.macPro.boot();
+        };
+
+        /**
+         * @extend {MacProDecorator}
+         * @param {MacProInterface} macPro Mac Pro instance to install iWork
+         */
+        var IWorkDecorator = function(macPro){
+            goog.base(this, macPro);
+        };
+        goog.inherits(IWorkDecorator, MacProDecorator);
+
+        IWorkDecorator.prototype.getSoftwareList = function() {
+            return this.macPro.getSoftwareList() +", iWork";
+        };
+
+
+        var LogicProDecorator = function(macPro){
+            goog.base(this, macPro);
+        };
+        goog.inherits(LogicProDecorator, MacProDecorator);
+
+        LogicProDecorator.prototype.getSoftwareList = function() {
+            return this.macPro.getSoftwareList() +", Logic Pro";
+        };
+
+
+        var myWorkhorse = new MacPro();
+        console.log(myWorkhorse.boot());
+
+        myWorkhorse = new IWorkDecorator(myWorkhorse);
+        console.log(myWorkhorse.getSoftwareList());
+
+        myWorkhorse = new LogicProDecorator(myWorkhorse);
+        console.log(myWorkhorse.getSoftwareList(), typeof myWorkhorse);
+
+        var myOtherWorkhorse = new MacPro();
+        myOtherWorkhorse = new IWorkDecorator(myOtherWorkhorse);
+        console.log(myOtherWorkhorse.getSoftwareList());
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

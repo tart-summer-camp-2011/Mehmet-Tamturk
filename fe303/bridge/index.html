@@ -8,21 +8,52 @@
     <script type="text/javascript" src="../tartJS/tart/deps.js"></script>
 
     <script type="text/javascript">
-    
+    var $helloArmaganButton,
+            $helloDamlaButton,
+            sayHello,
+            sayHelloDomBridge,
+            sayHelloPersonBridge,
+            Person,
+            person;
         $(function(){
-            var $helloArmaganButton = $('<div class="sayHello" id="Armagan">Say Hello to Armagan!</div> ');
-            var $helloDamlaButton = $('<div class="sayHello" id="Damla">Say Hello to Damla!</div> ');
+            $helloArmaganButton = $('<div class="sayHello" id="Armagan">Say Hello to Armagan!</div> ');
+            $helloDamlaButton = $('<div class="sayHello" id="Damla">Say Hello to Damla!</div> ');
             
             $("body").append($helloArmaganButton);
             $("body").append($helloDamlaButton);
 
-            var sayHello = function() {
-                console.log('Hello' + $(this).attr('id'));
+            //care application functionality
+            sayHello = function(name) {
+                console.log('Hello' + name);
             };
 
-            $helloArmaganButton.click(sayHello);
-            $helloDamlaButton.click(sayHello);
-            
+            //bridge to any other media
+            sayHelloDomBridge = function() {
+                sayHello($(this).attr('id'));
+            };
+
+            /**
+             *
+             * @param (Person) person Person instance to get its name
+             */
+
+            sayHelloPersonBridge = function(person) {
+                sayHello(person.name);
+            }
+
+
+            //using bridges
+            $helloArmaganButton.click(sayHelloDomBridge);
+            $helloDamlaButton.mouseover(sayHelloDomBridge);
+
+
+            Person = function(name,eyes,height) {
+                this.name = name;
+                this.eyes = eyes;
+                this.height = height;
+            }
+            person = new Person("Mahmut","brown","170cm");
+            sayHelloPersonBridge(person);
 
         });
     </script>

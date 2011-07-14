@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bridge</title>
+
+    <script type="text/javascript" src="../tartJS/third_party/jquery/jquery-1.5.2.js"></script>
+    <script type="text/javascript" src="../tartJS/third_party/goog/goog/base.js"></script>
+    <script type="text/javascript" src="../tartJS/tart/deps.js"></script>
+
+    <script type="text/javascript">
+        $(function(){
+            var $helloArmaganButton = $('<div class="sayHello" id="Armagan">Say Hello to Armagan!</div> ');
+            var $helloDamlaButton = $('<div class="sayHello" id="Damla">Say Hello to Damla!</div> ');
+            $("body").append($helloButton);
+
+
+
+            $helloArmaganButton.click(function(e){
+                console.log("Hello" + $(this).attr('id'));
+            }); 
+
+            $helloDamlaButton.click(function(e){
+                console.log("Hello" + $(this).attr('id'));
+            });
+        });
+    </script>
+</head>
+<body>
+
+</body>
+</html>

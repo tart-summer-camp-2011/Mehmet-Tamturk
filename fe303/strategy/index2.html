@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Strategy</title>
+    <script type="text/javascript" src="../tartJS/third_party/jquery/jquery-1.5.2.js"></script>
+    <script type="text/javascript" src="../tartJS/third_party/goog/goog/base.js"></script>
+    <script type="text/javascript" src="../tartJS/tart/deps.js"></script>
+
+    <script type="text/javascript">
+
+        var StrategyInterface = function() {
+        };
+
+        StrategyInterface.prototype.strategyContext = function(strategy){
+            var str = new Strategy();
+            switch(strategy){
+                case "car":     this.strategy = str.StrategyCar(); return this.strategy;
+
+                case "taxi":    this.strategy = str.StrategyTaxi(); return this.strategy;
+
+                case "bus":     this.strategy = str.StrategyBus(); return this.strategy;
+
+                default: console.log("It is a wrong choise, you miss your Flight"); return str.strategy;
+
+            }
+        };
+
+        var Strategy = function() {
+          this.strategy = "Walking..";
+        };
+
+        Strategy.prototype.StrategyCar = function() {
+            this.strategy = "Car..";
+            return this.strategy;
+        };
+
+        Strategy.prototype.StrategyTaxi = function() {
+            this.strategy = "Taxi..";
+            return this.strategy;
+        };
+
+        Strategy.prototype.StrategyBus = function() {
+            this.strategy = "Bus..";
+            return this.strategy;
+        };
+
+        var text = "Go to the Airport by ";
+        
+        var strategyInterface = new StrategyInterface();
+        var choise;
+        choise = strategyInterface.strategyContext("car");
+        console.log(text + choise);
+
+        choise = strategyInterface.strategyContext("bus");
+        console.log(text + choise);
+
+        choise = strategyInterface.strategyContext("taxi");
+        console.log(text + choise);
+
+        choise = strategyInterface.strategyContext();
+        console.log(text + choise);
+
+        
+    </script>
+</head>
+<body>
+
+</body>
+</html>

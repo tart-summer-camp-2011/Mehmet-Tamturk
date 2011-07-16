@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <title>Iterator</title>
+    <script type="text/javascript" src="../tartJS/third_party/jquery/jquery-1.5.2.js"></script>
+    <script type="text/javascript" src="../tartJS/third_party/goog/goog/base.js"></script>
+    <script type="text/javascript" src="../tartJS/tart/deps.js"></script>
+
+    
+    <script type="text/javascript">
+
+        var Bank = function () {
+            this.clients = [];
+        };
+
+        Bank.prototype.addClient = function (client) {
+            this.clients.push(client);
+            console.log("client" + client.id + " added to array.");
+        };
+
+
+        var Teller = function (clientIterator){
+            this.clientIterator = clientIterator;
+        };
+
+        Teller.prototype.processRequest = function () {
+            var client = this.clientIterator.next();
+            if ( client != null) {
+                console.log(client.id + ". customer called by teller..");
+                client.getRequest();
+            }
+            else {
+                console.log("No customer in Queue..");
+            }
+        };
+
+        var j=1;
+        var Client = function (){
+            this.id = j;
+            console.log("Client " + this.id + " created.");
+            j++;
+        };
+
+        Client.prototype.getInvoice = function () {
+
+        };
+
+        Client.prototype.getRequest = function () {
+            console.log("A customer came..");
+        };
+
+
+        var ClientIterator = function () {
+            console.log("Client Iterator called..");
+            this.items = [];
+            this.pointer=0;
+        };
+
+      
+        ClientIterator.prototype.next = function () {
+            if(this.items.length >= this.pointer) {
+                return this.items[this.pointer++];
+            }
+            else {
+                return null;
+            }
+        };
+
+        ClientIterator.prototype.createIterator = function (clients){
+            this.items = clients;
+        };
+
+        var mehmet = new Client();
+        var ahmet = new Client();
+        var mahmut = new Client();
+        var sakir = new Client();
+
+        var bank = new Bank;
+        bank.addClient(mehmet);
+        bank.addClient(ahmet);
+        bank.addClient(mahmut);
+        bank.addClient(sakir);
+
+        var teller = new Teller();
+        var clientIterator = new ClientIterator();
+        clientIterator.createIterator(bank.clients);
+        teller.clientIterator = clientIterator;
+
+        console.log("There are " + clientIterator.items.length +" customer in queue..");
+        for(var i=0; i<5; i++) {
+            teller.processRequest();
+        }
+
+
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

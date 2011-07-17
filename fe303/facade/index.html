@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Facade</title>
+    <script type="text/javascript" src="../tartJS/third_party/jquery/jquery-1.5.2.js"></script>
+    <script type="text/javascript" src="../tartJS/third_party/goog/goog/base.js"></script>
+    <script type="text/javascript" src="../tartJS/tart/deps.js"></script>
+
+    <script type="text/javascript">
+        var CarFacade = function() {
+
+        };
+
+        CarFacade.prototype.CreateCompleteCar = function(){
+
+            var wheelSystem = new WheelSystem();
+            var carBody = new CarBody();
+            var steeringSystem = new SteeringSystem();
+            var chassisSystem = new ChassisSystem();
+
+            wheelSystem.AddWheelSystem();
+            carBody.AddCarBody();
+            steeringSystem.AddSteeringSystem();
+            chassisSystem.AddChassisSystem();
+        };
+
+        var WheelSystem = function(){
+            this.wheel= "Type1";
+        };
+
+        WheelSystem.prototype.AddWheelSystem = function() {
+            this.wheel= "Pirelli";
+            console.log(this.wheel + " wheel added");
+        };
+
+        var CarBody = function(){
+            this.body= "Type1";
+        };
+
+        CarBody.prototype.AddCarBody = function(){
+            this.body= "Type3";
+            console.log(this.body + " body kit added");
+        };
+
+        var SteeringSystem = function(){
+            this.steering= "Type1";
+        };
+
+        SteeringSystem.prototype.AddSteeringSystem = function() {
+            console.log(this.steering + " steering added");
+        };
+
+        var ChassisSystem = function(){
+            this.chassis= "Type1";
+        };
+
+        ChassisSystem.prototype.AddChassisSystem = function() {
+            this.chassis= "Type6";
+            console.log(this.chassis+ " chassiss added");
+
+        };
+
+        var completeCar = new CarFacade();
+        completeCar.CreateCompleteCar();
+
+
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
